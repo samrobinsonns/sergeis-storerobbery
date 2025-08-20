@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Register Robbery</title>
+    <link rel="stylesheet" href="cash_register.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="cash-register-container" class="hidden">
+        <div class="register-content">
+            <div class="register-body">
+                <div class="register-screen">
+                    <div class="screen-content">
+                        <div class="amount-display" id="amount-display">$0.00</div>
+                        <div class="status-text">EMPTYING...</div>
+                    </div>
+                </div>
+                <div class="register-drawer">
+                    <div class="drawer-handle"></div>
+                    <div class="drawer-content">
+                        <div class="cash-stacks">
+                            <div class="cash-stack stack-1" id="cash-stack-1">
+                                <div class="bill bill-20">$20</div>
+                            </div>
+                            <div class="cash-stack stack-2" id="cash-stack-2">
+                                <div class="bill bill-10">$10</div>
+                            </div>
+                            <div class="cash-stack stack-3" id="cash-stack-3">
+                                <div class="bill bill-5">$5</div>
+                            </div>
+                            <div class="cash-stack stack-4" id="cash-stack-4">
+                                <div class="bill bill-1">$1</div>
+                            </div>
+                        </div>
+                        <div class="coins-area">
+                            <div class="coin coin-quarter">25¢</div>
+                            <div class="coin coin-dime">10¢</div>
+                            <div class="coin coin-nickel">5¢</div>
+                            <div class="coin coin-penny">1¢</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cash-flow">
+                <div class="falling-cash" id="falling-cash-1">$20</div>
+                <div class="falling-cash" id="falling-cash-2">$10</div>
+                <div class="falling-cash" id="falling-cash-3">$5</div>
+                <div class="falling-cash" id="falling-cash-4">$1</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0%</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="cash_register.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Register Robbery - Design Test</title>
+    <link rel="stylesheet" href="html/cash_register.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Additional styles for testing */
+        body {
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+        
+        .test-controls h3 {
+            margin: 0 0 15px 0;
+            color: #f39c12;
+        }
+        
+        .test-controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .test-controls button:hover {
+            background: #2980b9;
+        }
+        
+        .test-controls input {
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 3px;
+            width: 80px;
+        }
+        
+        .test-controls label {
+            display: block;
+            margin: 10px 0 5px 0;
+            font-size: 14px;
+        }
+        
+        .info-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .info-panel h3 {
+            margin: 0 0 15px 0;
+            color: #2ecc71;
+        }
+        
+        .info-panel p {
+            margin: 5px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .info-panel .highlight {
+            color: #f39c12;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Test Controls -->
+    <div class="test-controls">
+        <h3>🏪 Cash Register Tester</h3>
+        
+        <div>
+            <label>Duration (seconds):</label>
+            <input type="number" id="duration" value="5" min="1" max="30">
+        </div>
+        
+        <div>
+            <label>Estimated Amount:</label>
+            <input type="number" id="amount" value="150" min="10" max="1000">
+        </div>
+        
+        <button onclick="startTestRobbery()">🚀 Start Robbery</button>
+        <button onclick="stopRobbery()">⏹️ Stop Robbery</button>
+        <button onclick="resetInterface()">🔄 Reset</button>
+    </div>
+    
+    <!-- Info Panel -->
+    <div class="info-panel">
+        <h3>ℹ️ Interface Info</h3>
+        <p><span class="highlight">Progress Bar:</span> Shows robbery completion</p>
+        <p><span class="highlight">Cash Stacks:</span> Visual representation of money</p>
+        <p><span class="highlight">Falling Cash:</span> Animated money flow</p>
+        <p><span class="highlight">Status Updates:</span> Real-time robbery progress</p>
+        <p><span class="highlight">Design:</span> Modify CSS in cash_register.css</p>
+    </div>
+
+    <!-- Cash Register Container -->
+    <div id="cash-register-container" class="hidden">
+        <div class="register-content">
+            <div class="register-body">
+                <div class="register-screen">
+                    <div class="screen-content">
+                        <div class="amount-display" id="amount-display">$0.00</div>
+                        <div class="status-text">EMPTYING...</div>
+                    </div>
+                </div>
+                <div class="register-drawer">
+                    <div class="drawer-handle"></div>
+                    <div class="drawer-content">
+                        <div class="cash-stacks">
+                            <div class="cash-stack stack-1" id="cash-stack-1">
+                                <div class="bill bill-20">$20</div>
+                            </div>
+                            <div class="cash-stack stack-2" id="cash-stack-2">
+                                <div class="bill bill-10">$10</div>
+                            </div>
+                            <div class="cash-stack stack-3" id="cash-stack-3">
+                                <div class="bill bill-5">$5</div>
+                            </div>
+                            <div class="cash-stack stack-4" id="cash-stack-4">
+                                <div class="bill bill-1">$1</div>
+                            </div>
+                        </div>
+                        <div class="coins-area">
+                            <div class="coin coin-quarter">25¢</div>
+                            <div class="coin coin-dime">10¢</div>
+                            <div class="coin coin-nickel">5¢</div>
+                            <div class="coin coin-penny">1¢</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cash-flow">
+                <div class="falling-cash" id="falling-cash-1">$20</div>
+                <div class="falling-cash" id="falling-cash-2">$10</div>
+                <div class="falling-cash" id="falling-cash-3">$5</div>
+                <div class="falling-cash" id="falling-cash-4">$1</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0%</span>
+            </div>
+        </div>
+        
+
+    </div>
+    
+    <script src="html/cash_register.js"></script>
+    <script>
+        // Test-specific functions
+        function startTestRobbery() {
+            const duration = parseInt(document.getElementById('duration').value) * 1000; // Convert to ms
+            const amount = parseInt(document.getElementById('amount').value);
+            
+            // Override the FiveM-specific function for testing
+            window.GetParentResourceName = function() {
+                return 'test';
+            };
+            
+            // Start the robbery
+            startCashRegisterRobbery(duration, amount);
+        }
+        
+        function stopRobbery() {
+            if (robberyActive) {
+                cancelRobbery();
+            }
+        }
+        
+        function resetInterface() {
+            // Reset all states
+            robberyActive = false;
+            currentProgress = 0;
+            remainingTime = 0;
+            
+            // Hide container
+            document.getElementById('cash-register-container').classList.add('hidden');
+            
+            // Reset cash stacks
+            const stacks = document.querySelectorAll('.cash-stack');
+            stacks.forEach(stack => stack.classList.remove('emptying'));
+            
+            // Reset progress
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            progressFill.style.width = '0%';
+            progressText.textContent = '0%';
+            
+            // Reset status
+            updateRobberyStatus('Preparing...');
+            updateTimeRemaining(0);
+            
+            // Remove any overlays
+            const overlays = document.querySelectorAll('.completion-overlay, .cancellation-overlay');
+            overlays.forEach(overlay => overlay.remove());
+            
+            // Reset content opacity
+            const content = document.querySelector('.register-content');
+            if (content) content.style.opacity = '1';
+        }
+        
+        // Override the FiveM fetch calls for testing
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options) {
+            if (url.includes('cashRegisterCompleted')) {
+                console.log('💰 Cash register robbery completed successfully!');
+                console.log('🎉 UI will close automatically and player gets notification in-game');
+                return Promise.resolve({ ok: true });
+            } else if (url.includes('cashRegisterCancelled')) {
+                console.log('❌ Cash register robbery cancelled');
+                return Promise.resolve({ ok: true });
+            }
+            return originalFetch.apply(this, arguments);
+        };
+        
+        // Auto-start a robbery for testing
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                console.log('🏪 Cash register tester loaded! Use the controls to test the interface.');
+                console.log('💡 You can now design and test the cash register robbery interface.');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
