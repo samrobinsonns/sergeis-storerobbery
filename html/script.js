@@ -37,9 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Event listeners
 function setupEventListeners() {
-    document.getElementById('close-btn').addEventListener('click', closeMinigame);
-    document.getElementById('retry-btn').addEventListener('click', retryGame);
-    
     // Listen for messages from FiveM
     window.addEventListener('message', function(event) {
         const data = event.data;
@@ -124,19 +121,13 @@ function resetGameStates() {
 
 // Timer functions
 function startTimer() {
-    updateTimerDisplay();
     gameTimer = setInterval(() => {
         timeLeft--;
-        updateTimerDisplay();
         
         if (timeLeft <= 0) {
             gameOver(false);
         }
     }, 1000);
-}
-
-function updateTimerDisplay() {
-    document.getElementById('timer').textContent = timeLeft;
 }
 
 function stopTimer() {
@@ -205,8 +196,6 @@ function handleLockpickClick() {
     lockpickGame.score += score;
     lockpickGame.attempts--;
     
-    updateLockpickStats();
-    
     if (lockpickGame.score >= lockpickGame.requiredScore) {
         gameOver(true);
     } else if (lockpickGame.attempts <= 0) {
@@ -217,10 +206,7 @@ function handleLockpickClick() {
     }
 }
 
-function updateLockpickStats() {
-    document.getElementById('attempts').textContent = lockpickGame.attempts;
-    document.getElementById('score').textContent = lockpickGame.score;
-}
+// Stats update removed - elements no longer exist
 
 // Hacking Game
 function initHackingGame(difficulty) {
@@ -229,9 +215,6 @@ function initHackingGame(difficulty) {
     
     createHackingGrid(gridSize, nodeCount);
     hackingGame.startTime = Date.now();
-    
-    // Start time update
-    updateHackingTime();
 }
 
 function createHackingGrid(size, nodeCount) {
@@ -276,8 +259,6 @@ function createHackingGrid(size, nodeCount) {
         cell.addEventListener('click', () => handleHackingClick(i, cell));
         grid.appendChild(cell);
     }
-    
-    updateHackingStats();
 }
 
 function handleHackingClick(index, cell) {
@@ -301,8 +282,6 @@ function handleHackingClick(index, cell) {
             }
         }
     }
-    
-    updateHackingStats();
 }
 
 function isAdjacent(node1, node2, gridSize) {
@@ -314,19 +293,7 @@ function isAdjacent(node1, node2, gridSize) {
     return Math.abs(row1 - row2) <= 1 && Math.abs(col1 - col2) <= 1;
 }
 
-function updateHackingStats() {
-    document.getElementById('nodes-connected').textContent = hackingGame.connectedNodes.length;
-    document.getElementById('total-nodes').textContent = hackingGame.totalNodes + 2; // +2 for start and end
-}
-
-function updateHackingTime() {
-    if (!gameActive) return;
-    
-    const elapsed = Math.floor((Date.now() - hackingGame.startTime) / 1000);
-    document.getElementById('hacking-time').textContent = elapsed;
-    
-    requestAnimationFrame(updateHackingTime);
-}
+// Stats update removed - elements no longer exist
 
 // Pattern Game
 function initPatternGame(difficulty) {
@@ -404,18 +371,12 @@ function handlePatternClick(index) {
         } else {
             // Next level
             patternGame.sequence.push(Math.floor(Math.random() * 9));
-            updatePatternStats();
             setTimeout(showPatternSequence, 1000);
         }
     }
-    
-    updatePatternStats();
 }
 
-function updatePatternStats() {
-    document.getElementById('pattern-level').textContent = patternGame.level;
-    document.getElementById('pattern-score').textContent = patternGame.score;
-}
+// Stats update removed - elements no longer exist
 
 // Game over
 function gameOver(success) {
@@ -425,10 +386,8 @@ function gameOver(success) {
     if (success) {
         // Show success message first
         showSuccessMessage();
-    } else {
-        // Show retry button
-        document.getElementById('retry-btn').classList.remove('hidden');
     }
+    // Note: Retry functionality removed - game ends on failure
 }
 
 // Show success message
@@ -491,27 +450,9 @@ function closeSuccessMessage() {
     }
 }
 
-// Retry game
-function retryGame() {
-    document.getElementById('retry-btn').classList.add('hidden');
-    startMinigame(currentGame, 'medium', 30, 3);
-}
+// Retry functionality removed - game ends on failure
 
-// Close minigame
-function closeMinigame() {
-    gameActive = false;
-    stopTimer();
-    
-    fetch(`https://${GetParentResourceName()}/minigameClose`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-    });
-    
-    document.getElementById('minigame-container').classList.add('hidden');
-}
+// Close minigame functionality removed - no close button
 
 // Utility function to get resource name
 function GetParentResourceName() {

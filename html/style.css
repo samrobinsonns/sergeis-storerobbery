@@ -21,9 +21,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    background: transparent;
     border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     color: white;
     overflow: hidden;
     animation: slideIn 0.3s ease-out;
@@ -41,7 +40,7 @@ body {
 }
 
 .minigame-header {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    background: transparent;
     padding: 20px;
     text-align: center;
     position: relative;
@@ -61,12 +60,13 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(0, 0, 0, 0.3);
+    background: transparent;
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 18px;
     font-weight: bold;
     color: #f39c12;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .minigame-content {
@@ -149,10 +149,11 @@ body {
 }
 
 .lockpick-stats span {
-    background: rgba(52, 73, 94, 0.5);
+    background: transparent;
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Hacking Game Styles */
@@ -223,10 +224,11 @@ body {
 }
 
 .hacking-stats span {
-    background: rgba(52, 73, 94, 0.5);
+    background: transparent;
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Pattern Game Styles */
@@ -299,10 +301,11 @@ body {
 }
 
 .pattern-stats span {
-    background: rgba(52, 73, 94, 0.5);
+    background: transparent;
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Footer Styles */
@@ -310,7 +313,7 @@ body {
     padding: 20px;
     display: flex;
     justify-content: space-between;
-    background: rgba(0, 0, 0, 0.2);
+    background: transparent;
 }
 
 .btn {
@@ -446,11 +449,12 @@ body {
 }
 
 .success-stats span {
-    background: rgba(52, 73, 94, 0.5);
+    background: transparent;
     padding: 10px 20px;
     border-radius: 25px;
     font-size: 14px;
     color: #ecf0f1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .success-stats .highlight {

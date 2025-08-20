@@ -9,7 +9,7 @@
     <style>
         /* Additional styles for testing */
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: transparent;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -180,11 +180,12 @@
         }
         
         .success-stats span {
-            background: rgba(52, 73, 94, 0.5);
+            background: transparent;
             padding: 10px 20px;
             border-radius: 25px;
             font-size: 14px;
             color: #ecf0f1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .success-stats .highlight {
@@ -258,13 +259,6 @@
 
     <!-- Minigame Container -->
     <div id="minigame-container" class="hidden">
-        <div class="minigame-header">
-            <h2><i class="fas fa-vault"></i> Safe Cracking Minigame</h2>
-            <div class="timer-container">
-                <span id="timer">30</span>s
-            </div>
-        </div>
-        
         <div class="minigame-content">
             <div id="lockpick-game" class="game-type hidden">
                 <div class="lockpick-container">
@@ -274,10 +268,6 @@
                     </div>
                     <div class="lockpick-instructions">
                         <p>Click when the pin is in the green zone!</p>
-                        <div class="lockpick-stats">
-                            <span>Attempts: <span id="attempts">3</span></span>
-                            <span>Score: <span id="score">0</span></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -289,10 +279,6 @@
                     </div>
                     <div class="hacking-instructions">
                         <p>Connect all nodes to complete the hack!</p>
-                        <div class="hacking-stats">
-                            <span>Time: <span id="hacking-time">0</span>s</span>
-                            <span>Nodes: <span id="nodes-connected">0</span>/<span id="total-nodes">0</span></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -304,22 +290,9 @@
                     </div>
                     <div class="pattern-instructions">
                         <p>Memorize and repeat the pattern!</p>
-                        <div class="pattern-stats">
-                            <span>Level: <span id="pattern-level">1</span></span>
-                            <span>Score: <span id="pattern-score">0</span></span>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="minigame-footer">
-            <button id="close-btn" class="btn btn-secondary">
-                <i class="fas fa-times"></i> Close
-            </button>
-            <button id="retry-btn" class="btn btn-primary hidden">
-                <i class="fas fa-redo"></i> Retry
-            </button>
         </div>
     </div>
     
@@ -353,12 +326,6 @@
             
             // Hide container
             document.getElementById('minigame-container').classList.add('hidden');
-            
-            // Reset timer display
-            document.getElementById('timer').textContent = '30';
-            
-            // Hide retry button
-            document.getElementById('retry-btn').classList.add('hidden');
         }
         
         // Override the FiveM fetch calls for testing
